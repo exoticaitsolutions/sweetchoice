@@ -7,31 +7,98 @@ import { Suspense } from 'react';
 import { Image, Money } from '@shopify/hydrogen';
 import type { FeaturedCollectionFragment, RecommendedProductsQuery } from 'storefrontapi.generated';
 import { FEATURED_COLLECTION_QUERY, RECOMMENDED_PRODUCTS_QUERY, CHRISTMAS_COLLECTION_QUERY } from '../graphql/queries';
-import { BusinessSelector } from '../components/BusinessSelector';
+// ui
 import Logos from '../components/ui/Logos';
 import Button from '../components/ui/Button';
 import Blurbs from '../components/ui/Blurbs';
-import SectionIntro from '../components/ui/SectionIntro';
-import '../styles/pages/home.css';
-// import '../styles/business-selector.css';
-// import '../styles/collections.css';
-// import '../styles/ui/logos.css';
+import Eyebrow from '../components/ui/Eyebrow';
+// holiday
+import HolidaySection from '~/components/holidays/HolidaySection';
+import HolidayWheel from '~/components/holidays/HolidayWheel';
+// import HolidaySection, { loader as holidayLoader } from '~/components/holidays/HolidaySection';
+
+// import { Button } from 'flowbite-react';
+
 
 export const meta: MetaFunction = () => {
 	return [{ title: 'Sweetchoice | Home' }];
 };
 
+
+const COLLECTION_QUERY = `#graphql
+  query Collection($handle: String!) {
+    collection(handle: $handle) {
+      id
+      title
+      handle
+      description
+      products(first: 4) {
+        nodes {
+          id
+          title
+          handle
+          featuredImage {
+            url
+            altText
+          }
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+
+// ----------------------------------------------
+
+
 export async function loader(args: LoaderFunctionArgs) {
-	const deferredData = loadDeferredData(args);
+	const { context } = args;
+	const { storefront } = context;
+
+	const holidayCollections = await Promise.all(
+		['christmas', 'valentines', 'easter', 'halloween'].map(async (handle) => {
+			const { collection } = await storefront.query(COLLECTION_QUERY, {
+				variables: { handle },
+			});
+			return { [handle]: collection };
+		})
+	);
+
+	const holidayCollectionsData = Object.assign({}, ...holidayCollections);
+
 	const criticalData = await loadCriticalData(args);
-	const christmasCollection = await loadChristmasCollection(args);
+	const deferredData = loadDeferredData(args);
 
 	return defer({
-		...deferredData,
 		...criticalData,
-		...christmasCollection,
+		...deferredData,
+		holidayCollections: holidayCollectionsData,
 	});
 }
+
+
+// export async function loader(args: LoaderFunctionArgs) {
+// 	const deferredData = loadDeferredData(args);
+// 	const criticalData = await loadCriticalData(args);
+// 	const christmasCollection = await loadChristmasCollection(args);
+// 	// const holidayData = await holidayLoader(args);
+
+// 	return defer({
+// 		...deferredData,
+// 		...criticalData,
+// 		christmasCollection,
+// 		// ...christmasCollection,
+// 		// ...holidayData,
+// 	});
+// }
+
+
 
 async function loadCriticalData({ context }: LoaderFunctionArgs) {
 	const { collections } = await context.storefront.query(FEATURED_COLLECTION_QUERY);
@@ -60,10 +127,6 @@ function loadDeferredData({ context }: LoaderFunctionArgs) {
 	};
 }
 
-const heroAssets = [
-	"/assets/graphics/choco-gradient.svg",
-	"/assets/graphics/choco-grad-2.svg",
-];
 
 const logos = [
 	{ src: "/assets/logos/maxi-logo.svg", alt: "Maxi logo" },
@@ -97,77 +160,81 @@ const blurbsData = [
 
 
 export default function Homepage() {
-	const [currentImage, setCurrentImage] = useState(heroAssets[0]);
+	const [currentImage, setCurrentImage] = useState(0);
 
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setCurrentImage((prevImage) =>
-				prevImage === heroAssets[0] ? heroAssets[1] : heroAssets[0]
-			);
-		}, 1500);
-
-		return () => clearInterval(interval);
-	}, []);
 
 	const data = useLoaderData<typeof loader>();
 
 	return (
-		<div className="home">
-			<div className="hero">
-				<img className="choco-background" src={currentImage} alt="Chocolate background" />
-				<div className="hero-content">
-					<h1>SWEET HOLIDAYS, ALL YEAR LONG</h1>
-					<p>We wholesale and retail wholesome holiday treats.<br /> Trusted by leading supermarket chains.
-						<a target='blank' href="https://docs.google.com/spreadsheets/d/1sq8mcjEbsU1FJfUBehCM19C8hqdo8wz5gJ3GGRkNBDY/edit?gid=0#gid=0"> csv</a>
-					</p>
-					<Button type="primary" onClick={() => window.location.href = "/contact"}>Talk Business</Button>
-					<Button type="secondary" onClick={() => window.location.href = "/collections/all"}>Shop all →</Button>
+		<main className="">
+			<div className='container mx-auto'>
+			<section className="p-6 sm:p-8 md:p-12">
+				<div className="w-full banner-img">
 					
-					<div className="bg-gray-500 w-22 h 12">
-						asd
+					<div className="md:w-3/5 mb-4 flex flex-col">
+
+						<h1 className=' text-7xl font-semibold'>SWEET HOLIDAYS, ALL YEAR LONG</h1>
+						<p className='text-2xl'>
+							We wholesale and retail wholesome holiday treats. Trusted by leading supermarket chains.
+						</p>
 					</div>
 
-					<div className='home-logos-container'>
-						<Logos logos={logos} />
+					<div className="flex gap-6 mt-16">
+						<Link
+							to={`/contact`}
+							className="text-xl font-semibold px-12 py-2 border-2 border-black 
+
+											shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] 
+											transition-all duration-200
+											flex items-center justify-center"
+
+						>
+							Talk Business
+						</Link>
+						<Button type="secondary" onClick={() => window.location.href = "/collections/all"}>Shop all →</Button>
 					</div>
 
 				</div>
+
+					<div className='p-4 my-6 border-2 border-black rounded-full bg-white mt-48'>
+						<Logos logos={logos} />
+					</div>
+			</section>
 			</div>
 			<hr style={{ marginBottom: '3em' }} />
 
 			<RecommendedProducts products={data.recommendedProducts} />
-			<BusinessSelector />
 
-
-			<SectionIntro
-				headline="Holiday confectionery wholesale"
-				description="Explore our tailored holiday confectionery wholesale programs. Making holidays colorful and sweet since 2013."
-				icon="🎉"
-			>
-				<a className="about-link" href="/about">Learn more →</a>
-				<img src="/assets/shopping-cart.svg" alt="Supermarket line art" style={{
-					width: '15%',
-					transform: 'rotate(30deg)',
-					position: 'absolute',
-					right: '10%',
-					top: '-15%'
-				}} />
-			</SectionIntro>
-
-
-			<section>
-				
-				<ChristmasCollection collection={data.christmasCollection} />
-
-			</section>
 
 			<hr />
-				<h1>Benefits</h1>
-				<Blurbs blurbs={blurbsData} />
-		</div>
+
+			<section>
+				<div className="flex items-center gap-4">
+					<h2 className=''>Treats & Sweets for Every Season</h2>
+				</div>
+			</section>
+
+			{/* New HolidaySection component */}
+			<HolidaySection holidayCollections={data.holidayCollections} />
+
+			{/* New HolidayWheel component */}
+			<HolidayWheel />
+
+			{/* Commented out old sections */}
+			{/* <HolidaySection /> */}
+			{/* <HolidaySection christmasCollection={data.christmasCollection} /> */}
+
+			{/* <section>
+        <h2>Christmas Collection test</h2>
+        <ChristmasCollection collection={data.christmasCollection} />
+      </section> */}
+
+			<hr />
+			<h1>Benefits</h1>
+			<Blurbs blurbs={blurbsData} />
+		</main>
 	);
 }
-
 
 function FeaturedCollection({ collection }: { collection: FeaturedCollectionFragment }) {
 	if (!collection) return null;

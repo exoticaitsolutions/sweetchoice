@@ -73,7 +73,7 @@ function CartAside({cart}: {cart: PageLayoutProps['cart']}) {
 function SearchAside() {
   return (
     <Aside type="search" heading="SEARCH">
-      <div className="predictive-search">
+      <div className="predictive-search ddd">
         <br />
         <PredictiveSearchForm>
           {({fetchResults, inputRef}) => (
@@ -105,6 +105,30 @@ function SearchAside() {
   );
 }
 
+export function Searchform() {
+  return (
+    <div className="mineSearch">
+      <div className="predictive-search ddd">
+      
+        <PredictiveSearchForm>
+          {({fetchResults, inputRef}) => (
+            <div>
+              <input
+                name="q"
+                onChange={fetchResults}
+                onFocus={fetchResults}
+                placeholder="Search here"
+                ref={inputRef}
+                type="search"
+              />
+            </div>
+          )}
+        </PredictiveSearchForm>
+        <PredictiveSearchResults />
+      </div>
+    </div>
+  );
+}
 function MobileMenuAside({
   header,
   publicStoreDomain,

@@ -14,17 +14,118 @@ export function Footer({
   publicStoreDomain,
 }: FooterProps) {
   return (
+   
     <Suspense>
       <Await resolve={footerPromise}>
         {(footer) => (
-          <footer className="footer">
-            {footer?.menu && header.shop.primaryDomain?.url && (
+          <footer className="footer w-full bg-[url('/assets/footer-bg.png')] bg-cover bg-center">
+            {/* {footer?.menu && header.shop.primaryDomain?.url && (
               <FooterMenu
                 menu={footer.menu}
                 primaryDomainUrl={header.shop.primaryDomain.url}
                 publicStoreDomain={publicStoreDomain}
               />
-            )}
+            )} */}
+            <div className='footer-menu flex'>
+                <div>
+                <h4 className="text-white">Company</h4>
+                <div className='secondary-footer-menu flex'>
+              
+                  <nav className="px-4 py-2">
+          
+                    <NavLink
+                      to="/"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block py-2"
+                    >
+                      About Us
+                    </NavLink>
+                    <NavLink
+                      to="/"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block py-2"
+                    >
+                      Products
+                    </NavLink>
+                    <NavLink
+                      to="/"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block py-2"
+                    >
+                      Privacy Policy
+                    </NavLink>
+                    <NavLink
+                      to="/"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block py-2"
+                    >
+                      Terms Of Use
+                    </NavLink>
+
+                  </nav>
+             
+                </div>
+                </div>
+                <div>
+                <h4 className="text-white">Collections</h4>
+                <div className='secondary-footer-menu flex'>
+
+                    <nav className="px-4 py-2">
+
+                      <NavLink
+                        to="/collections"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block py-2"
+                      >
+                        Shop
+                      </NavLink>
+                      <NavLink
+                        to="/holidays"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block py-2"
+                      >
+                        Holidays
+                      </NavLink>
+                      <NavLink
+                        to="/about"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block py-2"
+                      >
+                        About
+                      </NavLink>
+
+                    </nav>
+                    <nav className="px-4 py-2">
+
+                        <NavLink
+                          to="/collections/christmas"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="block py-2"
+                        >
+                          Christmas
+                        </NavLink>
+                        <NavLink
+                          to="/collections/valentines"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="block py-2"
+                        >
+                          Valentine's Day
+                        </NavLink>
+                        <NavLink
+                          to="/collections/easter"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="block py-2"
+                        >
+                          Easter
+                        </NavLink>
+
+                      </nav>
+                </div>
+                </div>
+            
+             
+           
+            </div>
           </footer>
         )}
       </Await>
@@ -38,7 +139,7 @@ function FooterMenu({
   publicStoreDomain,
 }: {
   menu: FooterQuery['menu'];
-  primaryDomainUrl: FooterProps['header']['shop']['primaryDomain']['url'];
+  primaryDomainUrl: ['header']['shop']['primaryDomain']['url'];
   publicStoreDomain: string;
 }) {
   return (
@@ -127,3 +228,4 @@ function activeLinkStyle({
     color: isPending ? 'grey' : 'white',
   };
 }
+
