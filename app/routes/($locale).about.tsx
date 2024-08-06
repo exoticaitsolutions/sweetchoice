@@ -1,56 +1,65 @@
 // app/routes/($locale).about.tsx
-
-
 import { useLoaderData, type MetaFunction } from '@remix-run/react';
-import { Image, Video } from '@shopify/hydrogen';
 import Eyebrow from '~/components/ui/Eyebrow';
 import ArrowButton from '~/components/ui/ArrowButton';
 import { Button, Timeline } from "flowbite-react";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import GalleryMasonry from '../components/ui/GalleryMasonry';
 
-
 export const meta: MetaFunction = () => {
-	return [{ title: `About us | Sweetchoice` }];
+    return [{ title: `About us | Sweetchoice` }];
 };
 
 const videoData = {
-	sources: [
-		{
-			mimeType: 'video/mp4',
-			url: '/assets/choc-vid.mp4',
-		},
-	],
+    sources: [
+        { mimeType: 'video/mp4', url: '/assets/choc-vid.mp4' },
+        { mimeType: 'video/mp4', url: '/assets/tiktok.mp4' },
+        { mimeType: 'video/mp4', url: '/assets/.mp4' },
+        { mimeType: 'video/mp4', url: '/assets/FULL-choc-vid.mp4' },
+    ],
 };
 
 export default function About() {
+    const mockPrevPage = () => console.log('Previous page clicked');
+    const mockNextPage = () => console.log('Next page clicked');
 
-	const mockPrevPage = () => console.log('Previous page clicked');
-	const mockNextPage = () => console.log('Next page clicked');
+    // Populate the assets array with both images and videos
+    const assets = [
+        
+        { type: 'video', src: '/assets/tiktok.mp4' },
+		{ type: 'video', src: '/assets/tiktok.mp4' },
+		{ type: 'video', src: '/assets/tiktok.mp4' },
+		{ type: 'video', src: '/assets/tiktok.mp4' },
+		{ type: 'video', src: '/assets/tiktok.mp4' },
+		{ type: 'video', src: '/assets/tiktok.mp4' },
+        // Add more assets here if needed
+    ];
 
 	return (
 		<div>
-			<section className="md:w-5/6 lg:w-3/6 space-y-2 mt-6">
+			<div className='container mx-auto  px-4 about-bg'>
+			<section className="md:w-5/6 space-y-2 mt-6 flex ">
 				
-				<Eyebrow text="About us" className='text-black w-24' />
-				<h1 className='text-5xl uppercase font-normal'>We Have Candy (And You Know It)</h1>
-			
+			<div class="md:w-3/5 mb-4 flex flex-col"><h1 class=" text-7xl font-semibold max-w-lg leading-tight ">WE HAVE CANDY (and you know it)</h1><p class="text-2xl max-w-2xl leading-tight">Sweetchoice is the only company in South East Europe specialized in the import and distribution of seasonal confectionery products. </p></div>
+			<div className='about-cab'>
+				<img src="/assets/about-cap.png" alt="" />
+			</div>
 			</section>
+			</div>
 			
-			<hr className='border-[0.06em]'/>
-
+		
 			
-			{/* ----------------------------------------------------- */}
-			<section className="relative">
 
-				<GalleryMasonry numAssets={6} numTypes={3} />
-				<ArrowButton direction="left" onClick={mockPrevPage} bgColor="#FFA6F6" />
-				<ArrowButton direction="right" onClick={mockNextPage} bgColor="#A6FAFF" />
+			<section className="relative mt-16 mb-16">
+                <GalleryMasonry numAssets={assets.length} numTypes={3} assets={assets} />
+                {/* <ArrowButton direction="left" onClick={mockPrevPage} bgColor="#FFA6F6" />
+                <ArrowButton direction="right" onClick={mockNextPage} bgColor="#A6FAFF" /> */}
+            </section>
 
-			</section>
 
-			{/* ----------------------------------------------------- */}
-			<section className='px-20 mt-12'>
+		
+			<div className='container mx-auto'>
+			<section className='mb-16'>
 				<h2 className='mb-8'>Our History</h2>
 				
 				<Timeline>
@@ -94,9 +103,9 @@ export default function About() {
 
 			</section>
 
-			{/* ----------------------------------------------------- */}
+
 			
-			<section>
+			<section className='mb-16'>
 				<div className="blurbs">
 					<div className="blurb">
 						<img src="/assets/graphics/choco-gradient.svg" alt="Buyback guarantee" />
@@ -114,9 +123,9 @@ export default function About() {
 			</section>
 
 			
-			{/* ----------------------------------------------------- */}
 
-			<section>
+
+			<section className='mb-12'>
 				<h2>Our Mission</h2>
 				<p>
 					We aim to build and maintain efficient, transparent, and long-term relations with all our business partners.
@@ -124,14 +133,15 @@ export default function About() {
 				</p>
 			</section>
 			
-			{/* ----------------------------------------------------- */}
 
-			<section>
+
+			<section className='mb-12'>
 				<h2>Our Team</h2>
 				<p>
 					Meet the passionate team behind Sweetchoice. We are dedicated to delivering the best chocolate treats for your holidays.
 				</p>
 			</section>
+			</div>
 		</div>
 	);
 }

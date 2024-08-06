@@ -186,7 +186,7 @@ export default function Homepage() {
 
 											shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] 
 											transition-all duration-200
-											flex items-center justify-center"
+											flex items-center justify-center hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
 
 						>
 							Talk Business
@@ -207,13 +207,13 @@ export default function Homepage() {
 
 
 			<hr />
-
+			<div className='container mx-auto'>
 			<section>
 				<div className="flex items-center gap-4">
 					<h2 className=''>Treats & Sweets for Every Season</h2>
 				</div>
 			</section>
-
+			</div>
 			{/* New HolidaySection component */}
 			<HolidaySection holidayCollections={data.holidayCollections} />
 
@@ -230,8 +230,10 @@ export default function Homepage() {
       </section> */}
 
 			<hr />
+			<div className='container mx-auto'>
 			<h1>Benefits</h1>
 			<Blurbs blurbs={blurbsData} />
+			</div>
 		</main>
 	);
 }
@@ -254,6 +256,7 @@ function FeaturedCollection({ collection }: { collection: FeaturedCollectionFrag
 function RecommendedProducts({ products }: { products: Promise<RecommendedProductsQuery | null> }) {
 	return (
 		<div className="recommended-products">
+			<div className='container mx-auto'>
 			<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 				<h2>Gift packs</h2>
 				<p>Make someone's day sweeter</p>
@@ -278,6 +281,7 @@ function RecommendedProducts({ products }: { products: Promise<RecommendedProduc
 				</Await>
 			</Suspense>
 			<br />
+			</div>
 		</div>
 	);
 }

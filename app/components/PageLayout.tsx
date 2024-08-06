@@ -113,14 +113,17 @@ export function Searchform() {
         <PredictiveSearchForm>
           {({fetchResults, inputRef}) => (
             <div>
+               <img className="absolute ml-[10px] mt-[15px]"  src="/assets/Vector.png" />
               <input
                 name="q"
+                className="text-left pl-10"
                 onChange={fetchResults}
                 onFocus={fetchResults}
                 placeholder="Search here"
                 ref={inputRef}
                 type="search"
               />
+             
             </div>
           )}
         </PredictiveSearchForm>
