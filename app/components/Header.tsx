@@ -32,7 +32,7 @@ export function Header({
 	return (
 		<header className="">
 			<div className='container mx-auto'>
-				<div className='main-header flex items-center justify-between py-4 px-8'>
+				<div className='main-header flex items-center justify-between py-4 px-8 sm-max:gap-2 sm-max:px-3 lg-max:px-3'>
 				<NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
 				<img className='w-20' src="/assets/logos/sc-logo.svg" alt="Logo" />
 			</NavLink>
@@ -150,7 +150,7 @@ function HeaderMenuMobileToggle() {
 			className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
 			onClick={() => open('mobile')}
 		>
-			<h3>☰</h3>
+			<h3 className='m-0'>☰</h3>
 		</button>
 	);
 }
@@ -206,17 +206,18 @@ function CartBadge({ count }: { count: number }) {
 }
 
 function MobileMenu({ header, setIsMobileMenuOpen }) {
+	const { close } = useAside();
 	return (
 		<div className="fixed inset-0 z-50 bg-white overflow-y-auto">
 			<div className="flex justify-end p-4">
 				<button
-					onClick={() => setIsMobileMenuOpen(false)}
+					onClick={() => close()}
 					className="1111 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
 				>
 					<XMarkIcon className="w-6 h-6 text-gray-700" />
 				</button>
 			</div>
-			<nav className="px-4 py-2">
+			<nav className="px-4 py-2 pl-10">
 				<NavLink
 					end
 					prefetch="intent"

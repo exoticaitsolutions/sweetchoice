@@ -116,7 +116,7 @@ export function Searchform() {
                <img className="absolute ml-[10px] mt-[15px]"  src="/assets/Vector.png" />
               <input
                 name="q"
-                className="text-left pl-10"
+                className="text-left pl-10 sm-max:w-40 lg-max:w-48"
                 onChange={fetchResults}
                 onFocus={fetchResults}
                 placeholder="Search here"

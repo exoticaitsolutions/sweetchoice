@@ -38,10 +38,10 @@ export default function About() {
 	return (
 		<div>
 			<div className='container mx-auto  px-4 about-bg'>
-			<section className="md:w-5/6 space-y-2 mt-6 flex ">
+			<section className="md:w-5/6 space-y-2 mt-6 flex sm-max:m-0 lg-max:w-full">
 				
-			<div class="md:w-3/5 mb-4 flex flex-col"><h1 class=" text-7xl font-semibold max-w-lg leading-tight ">WE HAVE CANDY (and you know it)</h1><p class="text-2xl max-w-2xl leading-tight">Sweetchoice is the only company in South East Europe specialized in the import and distribution of seasonal confectionery products. </p></div>
-			<div className='about-cab'>
+			<div class="md:w-3/5 mb-4 flex flex-col lg-max:w-full"><h1 class=" text-7xl font-semibold max-w-lg leading-tight sm-max:text-3xl sm-max:mt-5 sm-max:mb-3 ">WE HAVE CANDY (and you know it)</h1><p class="text-2xl max-w-2xl leading-tight sm-max:text-base">Sweetchoice is the only company in South East Europe specialized in the import and distribution of seasonal confectionery products. </p></div>
+			<div className='about-cab sm-max:hidden md-max:hidden'>
 				<img src="/assets/about-cap.png" alt="" />
 			</div>
 			</section>
@@ -50,7 +50,7 @@ export default function About() {
 		
 			
 
-			<section className="relative mt-16 mb-16">
+			<section className="relative mt-16 mb-16 sm-max:mt-8 sm-max:mb-8">
                 <GalleryMasonry numAssets={assets.length} numTypes={3} assets={assets} />
                 {/* <ArrowButton direction="left" onClick={mockPrevPage} bgColor="#FFA6F6" />
                 <ArrowButton direction="right" onClick={mockNextPage} bgColor="#A6FAFF" /> */}
@@ -58,14 +58,14 @@ export default function About() {
 
 
 		
-			<div className='container mx-auto'>
-			<section className='mb-16'>
-				<h2 className='mb-8'>Our History</h2>
+			<div className='container mx-auto sm-max:px-4 md-max:px-4'>
+			<section className='mb-16 sm-max:mt-16'>
+				<h2 className='mb-8 sm-max:mb-2'>Our History</h2>
 				
 				<Timeline>
 					<Timeline.Item>
 						<Timeline.Point />
-						<Timeline.Content>
+						<Timeline.Content className='sm-max:mb-5 sm-max:mt-5 '>
 							<Timeline.Time>February 2022</Timeline.Time>
 							<Timeline.Title>Application UI code in Tailwind CSS</Timeline.Title>
 							<Timeline.Body>
@@ -80,7 +80,7 @@ export default function About() {
 					</Timeline.Item>
 					<Timeline.Item>
 						<Timeline.Point />
-						<Timeline.Content>
+						<Timeline.Content className='sm-max:mb-5'>
 							<Timeline.Time>March 2022</Timeline.Time>
 							<Timeline.Title>Marketing UI design in Figma</Timeline.Title>
 							<Timeline.Body>
@@ -107,17 +107,17 @@ export default function About() {
 			
 			<section className='mb-16'>
 				<div className="blurbs">
-					<div className="blurb">
+					<div className="blurb sm-max:w-full">
 						<img src="/assets/graphics/choco-gradient.svg" alt="Buyback guarantee" />
-						<h3><span className="highlight">Founded in 2013</span> as a family business</h3>
+						<h3><span className="highlight">Founded in 2013</span><div className='sm-max:text-lg'>as a family business</div></h3>
 					</div>
 					<div className="blurb">
 						<img src="/assets/graphics/choco-grad-2.svg" alt="Promotional Support" />
-						<h3><span className="highlight">Fastest growing</span> sweets & confectionery company in the Balkans</h3>
+						<h3><span className="highlight">Fastest growing</span><div className='sm-max:text-lg'> sweets & confectionery company in the Balkans</div></h3>
 					</div>
 					<div className="blurb">
 						<img src="/assets/graphics/choco-gradient.svg" alt="Custom Terms" />
-						<h3><span className="highlight">120+ B2B</span> partners</h3>
+						<h3><span className="highlight">120+ B2B</span> <div className='sm-max:text-lg'>partners</div></h3>
 					</div>
 				</div>
 			</section>

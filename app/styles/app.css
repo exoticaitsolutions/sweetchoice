@@ -487,7 +487,11 @@ button.reset:hover:not(:has(> *)) {
 }
 
 
-
+@media only screen and (max-width: 991px) {
+  .w-full.banner-img:before{
+    display: none;
+  }
+}
 
 /*
 * --------------------------------------------------
