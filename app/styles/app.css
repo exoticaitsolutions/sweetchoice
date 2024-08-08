@@ -486,11 +486,23 @@ button.reset:hover:not(:has(> *)) {
   top: -80px;
 }
 
+.mobile-text{
+  font-size: 1.875rem !important;
+}
 
 @media only screen and (max-width: 991px) {
   .w-full.banner-img:before{
     display: none;
   }
+}
+@media only screen and (max-width: 575px) {
+  .mobile-view {
+    flex-direction: column !important;
+    margin-bottom: 30px;
+}
+hr.mobile-hr {
+  margin: 20px 0 0 0 !important;
+}
 }
 
 /*
