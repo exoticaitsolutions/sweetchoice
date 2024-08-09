@@ -180,6 +180,7 @@ function ProductCardComponent({ product, loading }: { product: ProductItemFragme
   const variant = product.variants.nodes[0];
   const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
   const productLink = variantUrl;
+  const product_id = product.id; 
   const imageUrl = product.featuredImage?.url || '';
   const imageAlt = product.featuredImage?.altText || product.title;
   const price = <Money data={product.priceRange.minVariantPrice} />;
@@ -199,6 +200,7 @@ function ProductCardComponent({ product, loading }: { product: ProductItemFragme
       reviewCount={reviewCount}
       features={features}
       darkImageUrl={imageUrl}
+      product_id={product_id}
     />
   );
 }

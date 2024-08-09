@@ -143,6 +143,7 @@ const WholesaleCardComponent = ({ product, secondaryColor }) => {
 	const imageUrl = product.featuredImage?.url || '';
 	const imageAlt = product.featuredImage?.altText || product.title;
 	const price = <Money data={product.priceRange.minVariantPrice} />;
+	const product_id = product.id; 
 
 	return (
 		<WholesaleCard
@@ -153,7 +154,8 @@ const WholesaleCardComponent = ({ product, secondaryColor }) => {
 			price={price}
 			weight="80g"
 			buttonBgColor={secondaryColor}
-			tags={product.tags || []} // Add this line
+			tags={product.tags || []}
+			product_id={product_id} // Passing firstVariant as a prop
 		/>
 	);
 };
