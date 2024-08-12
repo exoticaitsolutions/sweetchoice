@@ -205,6 +205,7 @@ function ProductCardComponent({ product, loading }: { product: ProductItemFragme
   );
 }
 
+
 const PRODUCT_ITEM_FRAGMENT = `#graphql
   fragment MoneyProductItem on MoneyV2 {
     amount
